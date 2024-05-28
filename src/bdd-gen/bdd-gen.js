@@ -57,8 +57,14 @@ function BddGen() {
     
     const generateTestCases = async () => {
         const url = `${process.env.REACT_APP_GEN_AI_BDD_TEST_GEN_PLUGIN}`;        
+        const configbdd = {
+            headers: {
+              'Ocp-Apim-Subscription-Key': `${process.env.REACT_APP_BDD_GEN_API_KEY}` // Replace with your actual header name and value
+            }
+          };
+
         try {
-            const response = await axios.post(url, stripHtmlTags(selectedStoryDesc));
+            const response = await axios.post(url, stripHtmlTags(selectedStoryDesc), configbdd);
             console.log(response.data);
             setGeneratedTestCase(response.data);
 
